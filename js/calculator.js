@@ -6,6 +6,8 @@
   const state = {
     formula: 'numerique',
     photoCount: 10,
+    reductionOverride: 150,  // manual reduction amount (positive value, displayed as negative)
+    freePhotosOverride: 0,   // manual free photos count
   };
 
   // ---- DOM refs ----
@@ -34,6 +36,15 @@
     els.inclusText = $('#inclus-text');
     els.monthAmounts = $$('.month-card__amount');
     els.monthCards = $$('.month-card');
+    // Adjuster elements
+    els.reductionSlider = $('#reduction-slider');
+    els.reductionDisplay = $('#reduction-display');
+    els.btnReductionMinus = $('#btn-reduction-minus');
+    els.btnReductionPlus = $('#btn-reduction-plus');
+    els.freeSlider = $('#free-slider');
+    els.freeDisplay = $('#free-display');
+    els.btnFreeMinus = $('#btn-free-minus');
+    els.btnFreePlus = $('#btn-free-plus');
   }
 
   // ---- Formatting ----
@@ -63,8 +74,8 @@
     if (!data) return null;
 
     const tier = getTier(state.photoCount);
-    const freeCount = getFreePhotos(state.photoCount, state.formula);
-    const reduction = data.reduction || 0;
+    const freeCount = state.freePhotosOverride;
+    const reduction = -state.reductionOverride;
     const remaining = data.prix + reduction;
     const mensualite = remaining / 6;
 
@@ -118,7 +129,7 @@
     animateUpdate(els.prixTotal, formatCurrency(result.prix));
 
     // Reduction
-    if (result.reduction && result.reduction !== 0) {
+    if (state.reductionOverride > 0) {
       els.reductionRow.classList.remove('price-card__row--hidden');
       els.reductionValue.textContent = formatCurrency(result.reduction);
     } else {
@@ -152,6 +163,15 @@
       card.offsetHeight; // reflow
       card.style.animation = `fadeSlideIn 0.3s var(--ease) ${i * 0.05}s both`;
     });
+
+    // Adjuster displays
+    els.reductionDisplay.textContent = '-' + formatCurrency(state.reductionOverride);
+    els.reductionSlider.value = state.reductionOverride;
+    updateAdjusterProgress(els.reductionSlider);
+
+    els.freeDisplay.textContent = state.freePhotosOverride + ' photo' + (state.freePhotosOverride > 1 ? 's' : '');
+    els.freeSlider.value = state.freePhotosOverride;
+    updateAdjusterProgress(els.freeSlider);
   }
 
   function animateUpdate(el, newText) {
@@ -179,6 +199,15 @@
       // Hide ticks that are beyond max
       tick.style.display = tierStarts[i] <= max ? '' : 'none';
     });
+  }
+
+  // ---- Adjuster slider progress ----
+  function updateAdjusterProgress(slider) {
+    const min = parseFloat(slider.min);
+    const max = parseFloat(slider.max);
+    const val = parseFloat(slider.value);
+    const progress = max > min ? ((val - min) / (max - min)) * 100 : 0;
+    slider.style.setProperty('--progress', progress + '%');
   }
 
   // ---- Event Handlers ----
@@ -234,6 +263,34 @@
           btn.click();
         }
       });
+    });
+
+    // Reduction adjuster
+    els.reductionSlider.addEventListener('input', () => {
+      state.reductionOverride = parseInt(els.reductionSlider.value);
+      render();
+    });
+    els.btnReductionMinus.addEventListener('click', () => {
+      state.reductionOverride = Math.max(0, state.reductionOverride - 10);
+      render();
+    });
+    els.btnReductionPlus.addEventListener('click', () => {
+      state.reductionOverride = Math.min(parseInt(els.reductionSlider.max), state.reductionOverride + 10);
+      render();
+    });
+
+    // Free photos adjuster
+    els.freeSlider.addEventListener('input', () => {
+      state.freePhotosOverride = parseInt(els.freeSlider.value);
+      render();
+    });
+    els.btnFreeMinus.addEventListener('click', () => {
+      state.freePhotosOverride = Math.max(0, state.freePhotosOverride - 1);
+      render();
+    });
+    els.btnFreePlus.addEventListener('click', () => {
+      state.freePhotosOverride = Math.min(parseInt(els.freeSlider.max), state.freePhotosOverride + 1);
+      render();
     });
 
     // Initial render

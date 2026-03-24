@@ -68,6 +68,32 @@
         </div>
       </div>
 
+      <!-- Réduction Selector -->
+      <div class="adjuster">
+        <label class="adjuster__label">Réduction</label>
+        <div class="adjuster__controls">
+          <button class="adjuster__btn" id="btn-reduction-minus" aria-label="Moins de réduction">−</button>
+          <span class="adjuster__value" id="reduction-display">-150 €</span>
+          <button class="adjuster__btn" id="btn-reduction-plus" aria-label="Plus de réduction">+</button>
+        </div>
+        <div class="adjuster__slider-wrap">
+          <input type="range" class="adjuster__slider" id="reduction-slider" min="0" max="600" value="150" step="10">
+        </div>
+      </div>
+
+      <!-- Photos Offertes Selector -->
+      <div class="adjuster">
+        <label class="adjuster__label">Photos offertes</label>
+        <div class="adjuster__controls">
+          <button class="adjuster__btn" id="btn-free-minus" aria-label="Moins de photos offertes">−</button>
+          <span class="adjuster__value adjuster__value--accent" id="free-display">0</span>
+          <button class="adjuster__btn" id="btn-free-plus" aria-label="Plus de photos offertes">+</button>
+        </div>
+        <div class="adjuster__slider-wrap">
+          <input type="range" class="adjuster__slider" id="free-slider" min="0" max="10" value="0" step="1">
+        </div>
+      </div>
+
       <!-- Price Card -->
       <div class="price-card">
         <div class="price-card__main">
