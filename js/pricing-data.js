@@ -15,7 +15,6 @@ function getTier(photoCount) {
 // photoSup: coût d'une photo supplémentaire (null = offert ou premier du palier)
 // reduction: réduction en € (valeur négative)
 const PRICING_NUMERIQUE = {
-  7:  { prix: 745,  photoSup: null,  prixParPhoto: null,  reduction: -50,  inclus: "Photos retouchées en HD + Application Boudoir" },
   8:  { prix: 745,  photoSup: null,  prixParPhoto: 93.13, reduction: -140, inclus: "Photos retouchées en HD + Application Boudoir" },
   9:  { prix: 825,  photoSup: 80,    prixParPhoto: 91.67, reduction: -150, inclus: "Photos retouchées en HD + Application Boudoir" },
   10: { prix: 905,  photoSup: 80,    prixParPhoto: 90.50, reduction: -160, inclus: "Photos retouchées en HD + Application Boudoir" },

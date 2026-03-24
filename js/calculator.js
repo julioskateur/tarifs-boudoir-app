@@ -220,12 +220,13 @@
     });
     els.toggleWrap.classList.toggle('toggle--produits', formula === 'produits');
 
-    // Adjust slider max
+    // Adjust slider min/max per formula
+    const minPhotos = formula === 'numerique' ? 8 : 7;
     const maxPhotos = formula === 'numerique' ? 52 : 44;
+    els.slider.min = minPhotos;
     els.slider.max = maxPhotos;
-    if (state.photoCount > maxPhotos) {
-      state.photoCount = maxPhotos;
-    }
+    if (state.photoCount > maxPhotos) state.photoCount = maxPhotos;
+    if (state.photoCount < minPhotos) state.photoCount = minPhotos;
 
     render();
   }
