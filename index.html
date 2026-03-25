@@ -153,7 +153,73 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     <div class="mensualites__amount" id="mensualite-amount">112,50 €</div>
   </div>
 
-  <script src="js/pricing-data.js"></script>
-  <script src="js/calculator.js"></script>
+  <script>
+// --- PRICING DATA ---
+var TIERS=[{name:"FLIRT",min:7,max:14,tagline:"Première découverte"},{name:"PIN-UP",min:15,max:24,tagline:"L'expérience complète"},{name:"SIRÈNE",min:25,max:34,tagline:"La collection prestige"},{name:"BOMBE",min:35,max:52,tagline:"L'expérience ultime"}];
+function getTier(c){return TIERS.find(function(t){return c>=t.min&&c<=t.max})}
+var PRICING_NUMERIQUE={8:{prix:745,inclus:"Photos retouchées en HD + Application Boudoir"},9:{prix:825,inclus:"Photos retouchées en HD + Application Boudoir"},10:{prix:905,inclus:"Photos retouchées en HD + Application Boudoir"},11:{prix:985,inclus:"Photos retouchées en HD + Application Boudoir"},12:{prix:1065,inclus:"Photos retouchées en HD + Application Boudoir"},13:{prix:1145,inclus:"Photos retouchées en HD + Application Boudoir"},14:{prix:1225,inclus:"Photos retouchées en HD + Application Boudoir"},15:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},16:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},17:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},18:{prix:1460,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},19:{prix:1525,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},20:{prix:1590,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},21:{prix:1655,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},22:{prix:1720,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},23:{prix:1785,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},24:{prix:1850,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},25:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},26:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},27:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},28:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},29:{prix:1965,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},30:{prix:2015,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},31:{prix:2065,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},32:{prix:2115,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},33:{prix:2165,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},34:{prix:2065,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},35:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},36:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},37:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},38:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},39:{prix:2240,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},40:{prix:2280,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},41:{prix:2320,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},42:{prix:2360,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},43:{prix:2400,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},44:{prix:2440,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},45:{prix:2480,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},46:{prix:2520,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},47:{prix:2560,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},48:{prix:2600,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},49:{prix:2640,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},50:{prix:2680,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},51:{prix:2720,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},52:{prix:2760,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"}};
+var PRICING_PRODUITS={7:{prix:795,inclus:"Boîte Héritage 13x18cm"},8:{prix:885,inclus:"Boîte Héritage 13x18cm"},9:{prix:975,inclus:"Boîte Héritage 13x18cm"},10:{prix:1065,inclus:"Boîte Héritage 13x18cm"},11:{prix:1155,inclus:"Boîte Héritage 13x18cm"},12:{prix:1245,inclus:"Boîte Héritage 13x18cm"},13:{prix:1335,inclus:"Boîte Héritage 13x18cm"},14:{prix:1425,inclus:"Boîte Héritage 13x18cm"},15:{prix:1495,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},16:{prix:1495,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},17:{prix:1565,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},18:{prix:1635,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},19:{prix:1705,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},20:{prix:1775,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},21:{prix:1845,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},22:{prix:1915,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},23:{prix:1985,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},24:{prix:2055,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},25:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},26:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},27:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},28:{prix:2185,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},29:{prix:2245,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},30:{prix:2305,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},31:{prix:2365,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},32:{prix:2425,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},33:{prix:2485,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},34:{prix:2545,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},35:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},36:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},37:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},38:{prix:2645,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},39:{prix:2695,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},40:{prix:2745,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},41:{prix:2795,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},42:{prix:2845,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},43:{prix:2895,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},44:{prix:2945,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"}};
+
+// --- CALCULATOR ---
+(function(){
+  var state={formula:'numerique',photoCount:10,photoSup:1,caution:0,reduction:150,months:6};
+  function $(id){return document.getElementById(id)}
+  function fmt(v){return v.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' \u20AC'}
+  function fmtShort(v){return v.toLocaleString('fr-FR',{minimumFractionDigits:0,maximumFractionDigits:0})+' \u20AC'}
+  function clamp(v,mn,mx){return Math.max(mn,Math.min(mx,v))}
+  function updateSlider(s){var mn=parseFloat(s.min),mx=parseFloat(s.max),v=parseFloat(s.value);s.style.setProperty('--progress',(mx>mn?((v-mn)/(mx-mn))*100:0)+'%')}
+  function calculate(){
+    var table=state.formula==='numerique'?PRICING_NUMERIQUE:PRICING_PRODUITS;
+    var mn=state.formula==='numerique'?8:7,mx=state.formula==='numerique'?52:44;
+    var billed=clamp(state.photoCount-state.photoSup,mn,mx);
+    var data=table[billed];if(!data)return null;
+    var initial=data.prix,restant=Math.max(0,initial-state.caution-state.reduction);
+    var mensualite=state.months>0?restant/state.months:restant;
+    return{initial:initial,restant:restant,mensualite:mensualite,inclus:data.inclus,tier:getTier(state.photoCount)};
+  }
+  var prevTier=null;
+  function flash(el){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}
+  function render(){
+    var r=calculate();if(!r)return;
+    var tierEl=$('tier-name');
+    if(prevTier!==r.tier.name){tierEl.classList.add('changing');setTimeout(function(){tierEl.textContent=r.tier.name;$('tier-tagline').textContent=r.tier.tagline;tierEl.classList.remove('changing')},180);prevTier=r.tier.name}
+    $('photos-value').textContent=state.photoCount;
+    $('sup-value').textContent=state.photoSup;
+    $('caution-value').textContent=fmtShort(state.caution);
+    $('reduction-value').textContent='-'+fmtShort(state.reduction);
+    $('months-value').textContent=state.months;
+    $('photos-slider').value=state.photoCount;$('reduction-slider').value=state.reduction;$('sup-slider').value=state.photoSup;$('caution-slider').value=state.caution;
+    updateSlider($('photos-slider'));updateSlider($('reduction-slider'));updateSlider($('sup-slider'));updateSlider($('caution-slider'));
+    var irEl=$('invest-restant'),newIR=fmt(r.restant);if(irEl.textContent!==newIR){irEl.textContent=newIR;flash(irEl)}
+    $('invest-initial').textContent=fmt(r.initial);
+    var maEl=$('mensualite-amount'),newMA=fmt(r.mensualite);if(maEl.textContent!==newMA){maEl.textContent=newMA;flash(maEl)}
+    $('inclus-text').textContent=r.inclus;
+    var badge=$('free-badge');
+    if(state.photoSup>0){badge.style.display='';$('free-badge-text').textContent=state.photoSup+' photo'+(state.photoSup>1?'s':'')+' offerte'+(state.photoSup>1?'s':'')+' !'}else{badge.style.display='none'}
+  }
+  function bindStepper(minusId,plusId,sliderId,key,step,minVal,maxVal){
+    $(minusId).addEventListener('click',function(){state[key]=clamp(state[key]-step,minVal,maxVal);render()});
+    $(plusId).addEventListener('click',function(){state[key]=clamp(state[key]+step,minVal,maxVal);render()});
+    if(sliderId){$(sliderId).addEventListener('input',function(){state[key]=parseFloat(this.value);render()})}
+  }
+  function init(){
+    var toggleBtns=document.querySelectorAll('.toggle__btn'),toggleWrap=document.querySelector('.toggle');
+    toggleBtns.forEach(function(btn){btn.addEventListener('click',function(){
+      state.formula=btn.dataset.formula;
+      toggleBtns.forEach(function(b){b.classList.toggle('toggle__btn--active',b.dataset.formula===state.formula)});
+      toggleWrap.classList.toggle('toggle--produits',state.formula==='produits');
+      var mn=state.formula==='numerique'?8:7,mx=state.formula==='numerique'?52:44;
+      $('photos-slider').min=mn;$('photos-slider').max=mx;state.photoCount=clamp(state.photoCount,mn,mx);render();
+    })});
+    bindStepper('btn-photos-minus','btn-photos-plus','photos-slider','photoCount',1,7,52);
+    bindStepper('btn-reduction-minus','btn-reduction-plus','reduction-slider','reduction',10,0,1000);
+    bindStepper('btn-sup-minus','btn-sup-plus','sup-slider','photoSup',1,0,10);
+    bindStepper('btn-caution-minus','btn-caution-plus','caution-slider','caution',50,0,2000);
+    bindStepper('btn-months-minus','btn-months-plus',null,'months',1,1,24);
+    render();
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
+})();
+  </script>
 </body>
 </html>
