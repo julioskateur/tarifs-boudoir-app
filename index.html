@@ -10,7 +10,7 @@
   <style>
 /* Tarifs Boudoir — Premium Design */
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:12px 16px 16px;max-width:720px;margin:0 auto}
+body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:12px 16px 16px;max-width:780px;margin:0 auto}
 .logo{text-align:center;margin-bottom:10px}
 .logo__img{height:56px;width:auto}
 .toggle{position:relative;display:flex;background:#fff;border-radius:50px;padding:3px;width:100%;max-width:400px;margin:0 auto 12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid rgba(210,168,90,0.15)}
@@ -32,6 +32,11 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
 .controls-row{display:flex;gap:10px;width:100%;margin-bottom:8px}
 .control-card{flex:1;background:#fff;border-radius:14px;padding:12px 10px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08)}
 .control-card--compact{padding:10px 8px 8px}
+.control-card--photos{width:100%;background:#fff;border-radius:14px;padding:14px 16px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08);margin-bottom:10px}
+.controls-row--triple{gap:8px}
+.stepper--large{gap:16px;margin-bottom:8px}
+.stepper__btn--lg{width:38px;height:38px;font-size:20px}
+.stepper__val--large{font-size:32px;min-width:50px}
 .control-card__label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:#999;margin-bottom:6px}
 .stepper{display:inline-flex;align-items:center;gap:10px;margin-bottom:6px}
 .stepper--small{gap:8px}
@@ -58,7 +63,7 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
 .mensualites__amount{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#232323;transition:all 0.3s ease}
 .flash{animation:flash 0.3s ease}
 @keyframes flash{0%{opacity:1}30%{opacity:0.3}100%{opacity:1}}
-@media(max-width:480px){body{padding:10px 10px 14px}.logo__img{height:44px}.toggle__btn{font-size:12px;padding:8px 6px}.tier__name{font-size:28px}.result-card{padding:16px 16px 12px}.result-card__price{font-size:40px}.result-card__inclus{font-size:13px}.stepper__val{font-size:20px}.stepper__btn{width:28px;height:28px;font-size:14px}.control-card{padding:8px 6px 6px}.controls-row{gap:6px}.mensualites__amount{font-size:18px}}
+@media(max-width:480px){body{padding:10px 10px 14px}.logo__img{height:44px}.toggle__btn{font-size:12px;padding:8px 6px}.tier__name{font-size:28px}.result-card{padding:16px 16px 12px}.result-card__price{font-size:40px}.result-card__inclus{font-size:13px}.stepper__val{font-size:20px}.stepper__btn{width:28px;height:28px;font-size:14px}.stepper__btn--lg{width:34px;height:34px;font-size:18px}.stepper__val--large{font-size:26px}.control-card{padding:8px 6px 6px}.control-card--photos{padding:10px 12px 8px}.controls-row{gap:6px}.controls-row--triple{gap:4px}.controls-row--triple .control-card__label{font-size:8px;letter-spacing:0.08em}.controls-row--triple .stepper__val--small{font-size:13px;min-width:42px}.controls-row--triple .stepper__btn--sm{width:24px;height:24px;font-size:12px}.mensualites__amount{font-size:18px}}
 @media(min-height:900px){.result-card{padding:28px 24px 20px;margin-bottom:16px}.result-card__price{font-size:60px}.controls-row{margin-bottom:12px}}
   </style>
 </head>
@@ -71,8 +76,8 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
 
   <!-- Toggle Numérique / Produits -->
   <div class="toggle">
-    <button class="toggle__btn toggle__btn--active" data-formula="numerique">Tout Numérique</button>
-    <button class="toggle__btn" data-formula="produits">Avec Produits</button>
+    <button class="toggle__btn toggle__btn--active" data-formula="numerique">Numérique</button>
+    <button class="toggle__btn" data-formula="produits">Hybride</button>
     <div class="toggle__indicator"></div>
   </div>
 
@@ -80,6 +85,17 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
   <div class="tier">
     <div class="tier__name" id="tier-name">FLIRT</div>
     <div class="tier__tagline" id="tier-tagline">Première découverte</div>
+  </div>
+
+  <!-- Nombre de photos (grand, sous le tier) -->
+  <div class="control-card control-card--photos">
+    <div class="control-card__label">Nombre de photos</div>
+    <div class="stepper stepper--large">
+      <button class="stepper__btn stepper__btn--lg" id="btn-photos-minus">−</button>
+      <span class="stepper__val stepper__val--large" id="photos-value">10</span>
+      <button class="stepper__btn stepper__btn--lg" id="btn-photos-plus">+</button>
+    </div>
+    <input type="range" class="slider" id="photos-slider" min="8" max="52" value="10" step="1">
   </div>
 
   <!-- ★ STAR : Prix Restant + Inclus -->
@@ -90,51 +106,38 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     <div class="result-card__initial">Initial : <span id="invest-initial">825,00 €</span></div>
   </div>
 
-  <!-- Contrôles : Nombre de photos + Réduction (même ligne) -->
-  <div class="controls-row">
-    <div class="control-card">
-      <div class="control-card__label">Nombre de photos</div>
-      <div class="stepper">
-        <button class="stepper__btn" id="btn-photos-minus">−</button>
-        <span class="stepper__val" id="photos-value">10</span>
-        <button class="stepper__btn" id="btn-photos-plus">+</button>
-      </div>
-      <input type="range" class="slider" id="photos-slider" min="8" max="52" value="10" step="1">
-    </div>
-    <div class="control-card">
-      <div class="control-card__label">Réduction</div>
-      <div class="stepper">
-        <button class="stepper__btn" id="btn-reduction-minus">−</button>
-        <span class="stepper__val stepper__val--green" id="reduction-value">-150 €</span>
-        <button class="stepper__btn" id="btn-reduction-plus">+</button>
-      </div>
-      <input type="range" class="slider" id="reduction-slider" min="0" max="600" value="150" step="10">
-    </div>
-  </div>
-
   <!-- Badge photos offertes -->
   <div class="free-badge" id="free-badge" style="display:none">
     <span class="free-badge__icon">✦</span>
     <span class="free-badge__text" id="free-badge-text">1 photo offerte !</span>
   </div>
 
-  <!-- Contrôles : Photos offertes + Caution (même ligne) -->
-  <div class="controls-row">
+  <!-- Contrôles : Réduction + Photos offertes + Caution (même ligne) -->
+  <div class="controls-row controls-row--triple">
+    <div class="control-card control-card--compact">
+      <div class="control-card__label">Réduction</div>
+      <div class="stepper stepper--small">
+        <button class="stepper__btn stepper__btn--sm" id="btn-reduction-minus">−</button>
+        <span class="stepper__val stepper__val--small stepper__val--green" id="reduction-value">-150 €</span>
+        <button class="stepper__btn stepper__btn--sm" id="btn-reduction-plus">+</button>
+      </div>
+      <input type="range" class="slider" id="reduction-slider" min="0" max="600" value="150" step="10">
+    </div>
     <div class="control-card control-card--compact">
       <div class="control-card__label">Photos offertes</div>
-      <div class="stepper">
-        <button class="stepper__btn" id="btn-sup-minus">−</button>
-        <span class="stepper__val" id="sup-value">1</span>
-        <button class="stepper__btn" id="btn-sup-plus">+</button>
+      <div class="stepper stepper--small">
+        <button class="stepper__btn stepper__btn--sm" id="btn-sup-minus">−</button>
+        <span class="stepper__val stepper__val--small" id="sup-value">1</span>
+        <button class="stepper__btn stepper__btn--sm" id="btn-sup-plus">+</button>
       </div>
       <input type="range" class="slider" id="sup-slider" min="0" max="10" value="1" step="1">
     </div>
     <div class="control-card control-card--compact">
       <div class="control-card__label">Caution</div>
-      <div class="stepper">
-        <button class="stepper__btn" id="btn-caution-minus">−</button>
+      <div class="stepper stepper--small">
+        <button class="stepper__btn stepper__btn--sm" id="btn-caution-minus">−</button>
         <span class="stepper__val stepper__val--small" id="caution-value">0 €</span>
-        <button class="stepper__btn" id="btn-caution-plus">+</button>
+        <button class="stepper__btn stepper__btn--sm" id="btn-caution-plus">+</button>
       </div>
       <input type="range" class="slider" id="caution-slider" min="0" max="500" value="0" step="50">
     </div>
