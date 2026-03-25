@@ -2,69 +2,170 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tarifs Boudoir — Expérience Boudoir Toulouse</title>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#d2a85a">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Tarifs Boudoir">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Give+You+Glory&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   <style>
-/* Tarifs Boudoir — Premium Design */
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:12px 16px 16px;width:780px;max-width:780px;margin:0 auto}
-.logo{text-align:center;margin-bottom:10px}
-.logo__img{height:56px;width:auto}
-.toggle{position:relative;display:flex;background:#fff;border-radius:50px;padding:3px;width:100%;max-width:400px;margin:0 auto 12px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid rgba(210,168,90,0.15)}
-.toggle__btn{flex:1;padding:10px 8px;border:none;background:transparent;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;color:#888;cursor:pointer;position:relative;z-index:2;transition:color 0.3s ease;border-radius:50px}
+html{background:#faf7f2}
+body{
+  font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;
+  padding:env(safe-area-inset-top,12px) 16px 16px;
+  width:100%;max-width:780px;margin:0 auto;
+  min-height:100vh;min-height:100dvh;
+  -webkit-user-select:none;user-select:none;
+  -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
+}
+
+/* ---- LOGO ---- */
+.logo{text-align:center;margin-bottom:8px}
+.logo__img{height:48px;width:auto}
+
+/* ---- TOGGLE ---- */
+.toggle{position:relative;display:flex;background:#fff;border-radius:50px;padding:3px;width:100%;max-width:340px;margin:0 auto 10px;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid rgba(210,168,90,0.15)}
+.toggle__btn{flex:1;padding:9px 8px;border:none;background:transparent;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:500;color:#888;cursor:pointer;position:relative;z-index:2;transition:color 0.3s ease;border-radius:50px}
 .toggle__btn--active{color:#fff}
 .toggle__indicator{position:absolute;top:3px;left:3px;width:calc(50% - 3px);height:calc(100% - 6px);background:linear-gradient(135deg,#d2a85a,#b8924a);border-radius:50px;transition:transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);z-index:1;box-shadow:0 2px 8px rgba(210,168,90,0.3)}
 .toggle--produits .toggle__indicator{transform:translateX(100%)}
-.tier{text-align:center;margin-bottom:8px}
-.tier__name{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;color:#232323;letter-spacing:0.08em;line-height:1;transition:all 0.4s ease}
+
+/* ---- TIER ---- */
+.tier{text-align:center;margin-bottom:4px}
+.tier__name{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#232323;letter-spacing:0.08em;line-height:1;transition:all 0.4s ease}
 .tier__name.changing{animation:tierPop 0.45s ease}
 @keyframes tierPop{0%{transform:scale(1);opacity:1}35%{transform:scale(0.85);opacity:0}65%{transform:scale(1.08);opacity:0}100%{transform:scale(1);opacity:1}}
-.tier__tagline{font-family:'Give You Glory',cursive;font-size:15px;color:#d2a85a;margin-top:2px}
-.result-card{width:100%;background:#fff;border-radius:16px;padding:20px 24px 16px;margin-bottom:12px;text-align:center;box-shadow:0 4px 24px rgba(210,168,90,0.15);border:1px solid rgba(210,168,90,0.12)}
-.result-card__price{font-family:'Playfair Display',serif;font-size:52px;font-weight:700;color:#232323;line-height:1;transition:all 0.3s ease}
-.result-card__label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:#999;margin:4px 0 10px}
-.result-card__inclus{font-size:14px;font-weight:500;color:#444;line-height:1.4;padding:10px 0;border-top:1px solid rgba(210,168,90,0.12)}
-.result-card__initial{font-size:11px;color:#aaa;margin-top:6px}
+.tier__tagline{font-family:'Give You Glory',cursive;font-size:14px;color:#d2a85a;margin-top:1px}
+
+/* ---- PHOTOS CONTROL (no card) ---- */
+.photos-control{width:100%;text-align:center;margin-bottom:8px;padding:0 16px}
+.photos-control .control-card__label{margin-bottom:4px}
+.stepper--large{gap:14px;margin-bottom:6px}
+.stepper__btn--lg{width:36px;height:36px;font-size:18px}
+.stepper__val--large{font-size:28px;min-width:44px}
+
+/* ---- RESULT CARD (STAR) ---- */
+.result-card{width:100%;background:#fff;border-radius:16px;padding:16px 20px 12px;margin-bottom:8px;text-align:center;box-shadow:0 4px 24px rgba(210,168,90,0.15);border:1px solid rgba(210,168,90,0.12)}
+.result-card__price{font-family:'Playfair Display',serif;font-size:44px;font-weight:700;color:#232323;line-height:1;transition:all 0.3s ease}
+.result-card__label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.18em;color:#999;margin:3px 0 8px}
+.result-card__inclus{font-size:13px;font-weight:500;color:#444;line-height:1.4;padding:8px 0;border-top:1px solid rgba(210,168,90,0.12)}
+.result-card__initial{font-size:10px;color:#aaa;margin-top:4px}
 .result-card__initial span{font-weight:600;color:#888}
-.controls-row{display:flex;gap:10px;width:100%;margin-bottom:8px}
-.control-card{flex:1;background:#fff;border-radius:14px;padding:12px 10px 10px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08)}
-.control-card--compact{padding:10px 8px 8px}
-.photos-control{width:100%;text-align:center;margin-bottom:10px;padding:0 20px}
-.controls-row--triple{gap:8px}
-.stepper--large{gap:16px;margin-bottom:8px}
-.stepper__btn--lg{width:38px;height:38px;font-size:20px}
-.stepper__val--large{font-size:32px;min-width:50px}
-.control-card__label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.14em;color:#999;margin-bottom:6px}
-.stepper{display:inline-flex;align-items:center;gap:10px;margin-bottom:6px}
-.stepper--small{gap:8px}
-.stepper__btn{width:32px;height:32px;border-radius:50%;border:1.5px solid #d2a85a;background:#fff;color:#d2a85a;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;line-height:1}
+
+/* ---- CONTROLS ROW ---- */
+.controls-row{display:flex;gap:8px;width:100%;margin-bottom:6px}
+.control-card{flex:1;background:#fff;border-radius:14px;padding:10px 6px 8px;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08);min-width:0}
+.control-card--compact{padding:8px 4px 6px}
+.control-card__label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#999;margin-bottom:4px;white-space:nowrap}
+
+/* ---- STEPPER ---- */
+.stepper{display:inline-flex;align-items:center;gap:8px;margin-bottom:4px}
+.stepper--small{gap:6px}
+.stepper__btn{width:30px;height:30px;border-radius:50%;border:1.5px solid #d2a85a;background:#fff;color:#d2a85a;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s ease;line-height:1;-webkit-tap-highlight-color:transparent}
 .stepper__btn:hover{background:#d2a85a;color:#fff}
-.stepper__btn:active{transform:scale(0.9)}
+.stepper__btn:active{transform:scale(0.9);background:#d2a85a;color:#fff}
 .stepper__btn--sm{width:26px;height:26px;font-size:14px}
-.stepper__val{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:#232323;min-width:40px;text-align:center;line-height:1}
+.stepper__val{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#232323;min-width:36px;text-align:center;line-height:1}
 .stepper__val--green{color:#2d8a56}
-.stepper__val--small{font-size:15px;font-family:'Montserrat',sans-serif;font-weight:600;min-width:50px}
-.slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:linear-gradient(to right,#d2a85a 0%,#d2a85a var(--progress,0%),#e5e0d8 var(--progress,0%),#e5e0d8 100%);outline:none;cursor:pointer;margin-top:2px}
-.slider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:linear-gradient(135deg,#e8c97a,#d2a85a);box-shadow:0 1px 6px rgba(210,168,90,0.35);cursor:grab;transition:transform 0.15s ease}
+.stepper__val--small{font-size:14px;font-family:'Montserrat',sans-serif;font-weight:600;min-width:44px}
+
+/* ---- SLIDER ---- */
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:2px;background:linear-gradient(to right,#d2a85a 0%,#d2a85a var(--progress,0%),#e5e0d8 var(--progress,0%),#e5e0d8 100%);outline:none;cursor:pointer;margin-top:2px;touch-action:manipulation}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#e8c97a,#d2a85a);box-shadow:0 1px 6px rgba(210,168,90,0.35);cursor:grab;transition:transform 0.15s ease}
 .slider::-webkit-slider-thumb:hover{transform:scale(1.15)}
-.slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;border:none;background:linear-gradient(135deg,#e8c97a,#d2a85a);box-shadow:0 1px 6px rgba(210,168,90,0.35);cursor:grab}
+.slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;border:none;background:linear-gradient(135deg,#e8c97a,#d2a85a);box-shadow:0 1px 6px rgba(210,168,90,0.35);cursor:grab}
 .slider::-moz-range-track{height:4px;border-radius:2px;background:#e5e0d8}
 .slider::-moz-range-progress{height:4px;border-radius:2px;background:#d2a85a}
-.free-badge{text-align:center;margin-bottom:8px;animation:fadeIn 0.3s ease}
+
+/* ---- FREE BADGE ---- */
+.free-badge{text-align:center;margin-bottom:6px;animation:fadeIn 0.3s ease}
 .free-badge__icon{color:#d2a85a;margin-right:4px}
-.free-badge__text{font-size:13px;font-weight:600;color:#b8924a}
+.free-badge__text{font-size:12px;font-weight:600;color:#b8924a}
 @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-.mensualites{width:100%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:12px;padding:10px 16px;box-shadow:0 2px 10px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08)}
-.mensualites__left{display:flex;align-items:center;gap:10px}
-.mensualites__label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#999}
-.mensualites__amount{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#232323;transition:all 0.3s ease}
+
+/* ---- MENSUALITES ---- */
+.mensualites{width:100%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:0 2px 10px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08)}
+.mensualites__left{display:flex;align-items:center;gap:8px}
+.mensualites__label{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#999}
+.mensualites__amount{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#232323;transition:all 0.3s ease}
+
+/* ---- ANIMATIONS ---- */
 .flash{animation:flash 0.3s ease}
 @keyframes flash{0%{opacity:1}30%{opacity:0.3}100%{opacity:1}}
-@media(max-width:480px){body{padding:10px 10px 14px}.logo__img{height:44px}.toggle__btn{font-size:12px;padding:8px 6px}.tier__name{font-size:28px}.result-card{padding:16px 16px 12px}.result-card__price{font-size:40px}.result-card__inclus{font-size:13px}.stepper__val{font-size:20px}.stepper__btn{width:28px;height:28px;font-size:14px}.stepper__btn--lg{width:34px;height:34px;font-size:18px}.stepper__val--large{font-size:26px}.control-card{padding:8px 6px 6px}.photos-control{padding:0 10px}.controls-row{gap:6px}.controls-row--triple{gap:4px}.controls-row--triple .control-card__label{font-size:8px;letter-spacing:0.08em}.controls-row--triple .stepper__val--small{font-size:13px;min-width:42px}.controls-row--triple .stepper__btn--sm{width:24px;height:24px;font-size:12px}.mensualites__amount{font-size:18px}}
-@media(min-height:900px){.result-card{padding:28px 24px 20px;margin-bottom:16px}.result-card__price{font-size:60px}.controls-row{margin-bottom:12px}}
+
+/* ---- RESPONSIVE MOBILE ---- */
+@media(max-width:430px){
+  body{padding:8px 10px 12px;padding-top:max(8px,env(safe-area-inset-top))}
+  .logo{margin-bottom:6px}
+  .logo__img{height:40px}
+  .toggle{max-width:280px;margin-bottom:8px}
+  .toggle__btn{font-size:12px;padding:8px 6px}
+  .tier{margin-bottom:2px}
+  .tier__name{font-size:26px}
+  .tier__tagline{font-size:13px}
+  .photos-control{padding:0 10px;margin-bottom:6px}
+  .stepper--large{gap:12px;margin-bottom:4px}
+  .stepper__btn--lg{width:32px;height:32px;font-size:16px}
+  .stepper__val--large{font-size:24px;min-width:38px}
+  .result-card{padding:14px 14px 10px;margin-bottom:6px;border-radius:14px}
+  .result-card__price{font-size:36px}
+  .result-card__label{font-size:9px;margin:2px 0 6px}
+  .result-card__inclus{font-size:12px;padding:6px 0}
+  .result-card__initial{font-size:9px}
+  .controls-row{gap:5px;margin-bottom:5px}
+  .control-card{border-radius:10px;padding:8px 4px 6px}
+  .control-card--compact{padding:6px 3px 5px}
+  .control-card__label{font-size:7.5px;letter-spacing:0.08em;margin-bottom:3px}
+  .stepper--small{gap:4px}
+  .stepper__btn--sm{width:24px;height:24px;font-size:12px}
+  .stepper__val--small{font-size:12px;min-width:38px}
+  .free-badge{margin-bottom:4px}
+  .free-badge__text{font-size:11px}
+  .mensualites{padding:7px 10px;border-radius:10px}
+  .mensualites__label{font-size:8px}
+  .mensualites__amount{font-size:17px}
+  .mensualites .stepper__btn--sm{width:22px;height:22px;font-size:11px}
+  .mensualites .stepper__val{font-size:17px;min-width:28px}
+}
+
+/* Very small phones (iPhone SE, etc.) */
+@media(max-width:375px){
+  .tier__name{font-size:22px}
+  .result-card__price{font-size:32px}
+  .result-card__inclus{font-size:11px}
+  .stepper__val--small{font-size:11px;min-width:34px}
+  .control-card__label{font-size:7px}
+}
+
+/* Tablet / large screens */
+@media(min-width:768px){
+  body{padding:16px 24px 20px}
+  .logo__img{height:56px}
+  .tier__name{font-size:36px}
+  .result-card{padding:24px 28px 18px}
+  .result-card__price{font-size:52px}
+  .result-card__inclus{font-size:14px}
+  .stepper__val--large{font-size:32px}
+  .stepper__btn--lg{width:38px;height:38px;font-size:20px}
+  .mensualites__amount{font-size:22px}
+}
+
+/* PWA standalone: pad for notch */
+@media(display-mode:standalone){
+  body{padding-top:max(16px,env(safe-area-inset-top))}
+}
   </style>
 </head>
 <body>
@@ -74,7 +175,7 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     <img src="https://spcdn.shortpixel.ai/spio/ret_img,q_cdnize,to_webp,s_webp/www.experienceboudoir-toulouse.fr/wp-content/uploads/2020/12/LOGO-BOUDOIR-SITE-WEB.webp" alt="Boudoir Photographie" class="logo__img">
   </div>
 
-  <!-- Toggle Numérique / Produits -->
+  <!-- Toggle Numérique / Hybride -->
   <div class="toggle">
     <button class="toggle__btn toggle__btn--active" data-formula="numerique">Numérique</button>
     <button class="toggle__btn" data-formula="produits">Hybride</button>
@@ -87,7 +188,7 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     <div class="tier__tagline" id="tier-tagline">Première découverte</div>
   </div>
 
-  <!-- Nombre de photos (directement sous le tier, sans cadre) -->
+  <!-- Nombre de photos (directement sous le tier) -->
   <div class="photos-control">
     <div class="control-card__label">Nombre de photos</div>
     <div class="stepper stepper--large">
@@ -98,11 +199,11 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     <input type="range" class="slider" id="photos-slider" min="8" max="52" value="10" step="1">
   </div>
 
-  <!-- ★ STAR : Prix Restant + Inclus -->
+  <!-- STAR : Prix Restant + Inclus -->
   <div class="result-card">
     <div class="result-card__price" id="invest-restant">675,00 €</div>
     <div class="result-card__label">Investissement Restant</div>
-    <div class="result-card__inclus" id="inclus-text">Photos retouchées en HD + 📱 Application Boudoir</div>
+    <div class="result-card__inclus" id="inclus-text">Photos retouchées en HD + Application Boudoir</div>
     <div class="result-card__initial">Initial : <span id="invest-initial">825,00 €</span></div>
   </div>
 
@@ -112,7 +213,7 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     <span class="free-badge__text" id="free-badge-text">1 photo offerte !</span>
   </div>
 
-  <!-- Contrôles : Réduction + Photos offertes + Caution (même ligne) -->
+  <!-- Réduction + Photos offertes + Caution -->
   <div class="controls-row controls-row--triple">
     <div class="control-card control-card--compact">
       <div class="control-card__label">Réduction</div>
@@ -143,7 +244,7 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
     </div>
   </div>
 
-  <!-- Mensualités (compact) -->
+  <!-- Mensualités -->
   <div class="mensualites">
     <div class="mensualites__left">
       <span class="mensualites__label">Mensualités</span>
@@ -158,10 +259,10 @@ body{font-family:'Montserrat',sans-serif;color:#232323;background:#faf7f2;-webki
 
   <script>
 // --- PRICING DATA ---
-var TIERS=[{name:"FLIRT",min:7,max:14,tagline:"Première découverte"},{name:"PIN-UP",min:15,max:24,tagline:"L'expérience complète"},{name:"SIRÈNE",min:25,max:34,tagline:"La collection prestige"},{name:"BOMBE",min:35,max:52,tagline:"L'expérience ultime"}];
+var TIERS=[{name:"FLIRT",min:7,max:14,tagline:"Premi\u00e8re d\u00e9couverte"},{name:"PIN-UP",min:15,max:24,tagline:"L\u2019exp\u00e9rience compl\u00e8te"},{name:"SIR\u00c8NE",min:25,max:34,tagline:"La collection prestige"},{name:"BOMBE",min:35,max:52,tagline:"L\u2019exp\u00e9rience ultime"}];
 function getTier(c){return TIERS.find(function(t){return c>=t.min&&c<=t.max})}
-var PRICING_NUMERIQUE={8:{prix:745,inclus:"Photos retouchées en HD + Application Boudoir"},9:{prix:825,inclus:"Photos retouchées en HD + Application Boudoir"},10:{prix:905,inclus:"Photos retouchées en HD + Application Boudoir"},11:{prix:985,inclus:"Photos retouchées en HD + Application Boudoir"},12:{prix:1065,inclus:"Photos retouchées en HD + Application Boudoir"},13:{prix:1145,inclus:"Photos retouchées en HD + Application Boudoir"},14:{prix:1225,inclus:"Photos retouchées en HD + Application Boudoir"},15:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},16:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},17:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},18:{prix:1460,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},19:{prix:1525,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},20:{prix:1590,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},21:{prix:1655,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},22:{prix:1720,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},23:{prix:1785,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},24:{prix:1850,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},25:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},26:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},27:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},28:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},29:{prix:1965,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},30:{prix:2015,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},31:{prix:2065,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},32:{prix:2115,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},33:{prix:2165,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},34:{prix:2065,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},35:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},36:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},37:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},38:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},39:{prix:2240,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},40:{prix:2280,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},41:{prix:2320,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},42:{prix:2360,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},43:{prix:2400,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},44:{prix:2440,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},45:{prix:2480,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},46:{prix:2520,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},47:{prix:2560,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},48:{prix:2600,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},49:{prix:2640,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},50:{prix:2680,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},51:{prix:2720,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},52:{prix:2760,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"}};
-var PRICING_PRODUITS={7:{prix:795,inclus:"Boîte Héritage 13x18cm"},8:{prix:885,inclus:"Boîte Héritage 13x18cm"},9:{prix:975,inclus:"Boîte Héritage 13x18cm"},10:{prix:1065,inclus:"Boîte Héritage 13x18cm"},11:{prix:1155,inclus:"Boîte Héritage 13x18cm"},12:{prix:1245,inclus:"Boîte Héritage 13x18cm"},13:{prix:1335,inclus:"Boîte Héritage 13x18cm"},14:{prix:1425,inclus:"Boîte Héritage 13x18cm"},15:{prix:1495,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},16:{prix:1495,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},17:{prix:1565,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},18:{prix:1635,inclus:"Boîte Héritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},19:{prix:1705,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},20:{prix:1775,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},21:{prix:1845,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},22:{prix:1915,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},23:{prix:1985,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},24:{prix:2055,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},25:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},26:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},27:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},28:{prix:2185,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},29:{prix:2245,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},30:{prix:2305,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},31:{prix:2365,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},32:{prix:2425,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},33:{prix:2485,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},34:{prix:2545,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},35:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},36:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},37:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},38:{prix:2645,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},39:{prix:2695,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},40:{prix:2745,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},41:{prix:2795,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},42:{prix:2845,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},43:{prix:2895,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},44:{prix:2945,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"}};
+var PRICING_NUMERIQUE={8:{prix:745,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},9:{prix:825,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},10:{prix:905,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},11:{prix:985,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},12:{prix:1065,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},13:{prix:1145,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},14:{prix:1225,inclus:"Photos retouch\u00e9es en HD + Application Boudoir"},15:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},16:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},17:{prix:1395,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},18:{prix:1460,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},19:{prix:1525,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},20:{prix:1590,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},21:{prix:1655,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},22:{prix:1720,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},23:{prix:1785,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},24:{prix:1850,inclus:"Cadre ART 30x40cm OFFERT + Application Boudoir"},25:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},26:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},27:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},28:{prix:1915,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},29:{prix:1965,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},30:{prix:2015,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},31:{prix:2065,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},32:{prix:2115,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},33:{prix:2165,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},34:{prix:2065,inclus:"2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},35:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},36:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},37:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},38:{prix:2200,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},39:{prix:2240,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},40:{prix:2280,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},41:{prix:2320,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},42:{prix:2360,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},43:{prix:2400,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},44:{prix:2440,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},45:{prix:2480,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},46:{prix:2520,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},47:{prix:2560,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},48:{prix:2600,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},49:{prix:2640,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},50:{prix:2680,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},51:{prix:2720,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"},52:{prix:2760,inclus:"Toile 60x40cm + 2 Cadres ART 30x40cm OFFERTS + Application Boudoir"}};
+var PRICING_PRODUITS={7:{prix:795,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},8:{prix:885,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},9:{prix:975,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},10:{prix:1065,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},11:{prix:1155,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},12:{prix:1245,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},13:{prix:1335,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},14:{prix:1425,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},15:{prix:1495,inclus:"Bo\u00eete H\u00e9ritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},16:{prix:1495,inclus:"Bo\u00eete H\u00e9ritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},17:{prix:1565,inclus:"Bo\u00eete H\u00e9ritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},18:{prix:1635,inclus:"Bo\u00eete H\u00e9ritage 15x21cm / Album Luxe + Cadre ART OFFERT + Application Mobile"},19:{prix:1705,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},20:{prix:1775,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},21:{prix:1845,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},22:{prix:1915,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},23:{prix:1985,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},24:{prix:2055,inclus:"Album Luxe + Cadre ART OFFERT + Application Mobile"},25:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},26:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},27:{prix:2125,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},28:{prix:2185,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},29:{prix:2245,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},30:{prix:2305,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},31:{prix:2365,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},32:{prix:2425,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},33:{prix:2485,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},34:{prix:2545,inclus:"Album Luxe Couverture Acrylique + 2 Cadres ART OFFERTS + Application Mobile"},35:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},36:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},37:{prix:2595,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},38:{prix:2645,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},39:{prix:2695,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},40:{prix:2745,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},41:{prix:2795,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},42:{prix:2845,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},43:{prix:2895,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"},44:{prix:2945,inclus:"Album Luxe Couverture Acrylique + Toile 60x40cm + 2 Cadres ART OFFERTS + Application Mobile"}};
 
 // --- CALCULATOR ---
 (function(){
@@ -223,6 +324,9 @@ var PRICING_PRODUITS={7:{prix:795,inclus:"Boîte Héritage 13x18cm"},8:{prix:885
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',init)}else{init()}
 })();
+
+// --- SERVICE WORKER ---
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js')}
   </script>
 </body>
 </html>
