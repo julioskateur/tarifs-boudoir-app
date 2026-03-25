@@ -2,534 +2,292 @@
    Tarifs Boudoir — Expérience Boudoir Toulouse
    ============================================= */
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-:root {
-  --gold: #d2a85a;
-  --gold-light: #e8c97a;
-  --gold-dark: #b8924a;
-  --burgundy: #590000;
-  --pink: #f9b2c4;
-  --pink-light: #fde8ef;
-  --charcoal: #232323;
-  --charcoal-light: #3a3a3a;
-  --white: #ffffff;
-  --off-white: #f9f9f9;
-  --cream: #faf7f2;
-  --green: #2d8a56;
-  --peach: #f5e6d3;
-  --peach-light: #fdf3e7;
-  --mint: #e8f5e9;
-
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Montserrat', 'Helvetica Neue', sans-serif;
-  --font-accent: 'Give You Glory', cursive;
-
-  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  --shadow-soft: 0 2px 16px rgba(0, 0, 0, 0.06);
-  --shadow-gold: 0 4px 24px rgba(210, 168, 90, 0.15);
-}
-
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  font-family: var(--font-body);
-  color: var(--charcoal);
-  background: var(--white);
-  line-height: 1.6;
+  font-family: 'Montserrat', sans-serif;
+  color: #232323;
+  background: #fff;
   -webkit-font-smoothing: antialiased;
-  min-height: 100vh;
 }
 
-/* ---- Header ---- */
+/* ---- HEADER ---- */
 .header {
   text-align: center;
-  padding: 2rem 1.5rem 1.5rem;
-  background: var(--white);
+  padding: 40px 20px 30px;
 }
-
 .header__logo {
-  font-family: var(--font-accent);
+  font-family: 'Give You Glory', cursive;
+  font-size: 52px;
   font-weight: 400;
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
-  color: var(--gold);
+  color: #d2a85a;
   line-height: 1;
 }
-
-.header__subtitle {
-  font-family: var(--font-body);
-  font-size: 0.65rem;
+.header__sub {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.35em;
+  color: #232323;
+  margin-top: 2px;
+}
+.header__names {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.25em;
-  color: var(--charcoal-light);
-  margin-top: 0.25rem;
+  letter-spacing: 0.2em;
+  color: #666;
+  margin-top: 4px;
 }
 
-/* ---- Calculator ---- */
-.calculator {
-  max-width: 960px;
+/* ---- MAIN ---- */
+.main {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 1rem 3rem;
+  padding: 0 16px 40px;
 }
 
-/* ---- Config Table ---- */
-.config-table {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  overflow: hidden;
-  margin-bottom: 1.5rem;
+/* ---- CONFIG TABLE ---- */
+.config {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #bbb;
+  margin-bottom: 24px;
+  table-layout: auto;
 }
-
-.config-table__row {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 0.7fr 1.2fr 0.9fr 0.9fr;
-  gap: 0;
-}
-
-.config-table__row--header {
-  background: var(--peach);
-  border-bottom: 1px solid #ccc;
-}
-
-.config-table__row--header span {
-  padding: 0.6rem 0.5rem;
-  font-size: 0.72rem;
+.config thead th {
+  background: #f5e0c0;
+  border: 1px solid #bbb;
+  padding: 10px 8px;
+  font-size: 13px;
   font-weight: 600;
   text-align: center;
-  color: var(--charcoal);
-  border-right: 1px solid #ccc;
+  color: #232323;
 }
-
-.config-table__row--header span:last-child {
-  border-right: none;
-}
-
-.config-table__row--values {
-  background: var(--white);
-}
-
-.config-cell {
-  padding: 0.6rem 0.4rem;
-  border-right: 1px solid #ccc;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-}
-
-.config-cell:last-child {
-  border-right: none;
-}
-
-.config-cell--result {
-  background: var(--peach-light);
-}
-
-.config-cell__amount {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--charcoal);
-}
-
-/* ---- Type Toggle (inside cell) ---- */
-.type-toggle {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  width: 100%;
-}
-
-.type-toggle__btn {
-  padding: 0.35rem 0.4rem;
-  border: 1px solid #ccc;
-  background: var(--white);
-  font-family: var(--font-body);
-  font-size: 0.68rem;
-  font-weight: 500;
-  color: var(--charcoal-light);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.25s var(--ease);
+.config tbody td {
+  border: 1px solid #bbb;
+  padding: 10px 8px;
   text-align: center;
+  vertical-align: middle;
+  background: #fff;
+}
+.config__select {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #232323;
+  cursor: pointer;
+  width: 100%;
+  max-width: 160px;
+}
+.config__result {
+  background: #f5e0c0 !important;
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #232323;
 }
 
-.type-toggle__btn--active {
-  background: var(--gold);
-  color: var(--white);
-  border-color: var(--gold);
-}
-
-.type-toggle__btn:hover:not(.type-toggle__btn--active) {
-  border-color: var(--gold);
-  color: var(--gold);
-}
-
-/* ---- Stepper (generic +/- with value) ---- */
+/* ---- STEPPER ---- */
 .stepper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: 6px;
 }
-
 .stepper__btn {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  border: 1.5px solid var(--gold);
-  background: var(--white);
-  color: var(--gold);
-  font-size: 1rem;
-  font-weight: 300;
+  border: 1.5px solid #d2a85a;
+  background: #fff;
+  color: #d2a85a;
+  font-size: 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s var(--ease);
+  transition: all 0.2s ease;
   line-height: 1;
-  flex-shrink: 0;
 }
-
 .stepper__btn:hover {
-  background: var(--gold);
-  color: var(--white);
+  background: #d2a85a;
+  color: #fff;
 }
-
 .stepper__btn:active {
   transform: scale(0.9);
 }
-
-.stepper__value {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
+.stepper__val {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
   font-weight: 700;
-  color: var(--charcoal);
-  min-width: 32px;
+  color: #232323;
+  min-width: 36px;
   text-align: center;
-  line-height: 1;
 }
-
-.stepper__value--small {
-  font-size: 0.9rem;
+.stepper__val--eur {
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  min-width: 55px;
+  min-width: 60px;
+}
+.stepper--big .stepper__val {
+  font-size: 28px;
+  min-width: 44px;
 }
 
-/* ---- Config Slider (small, inside cells) ---- */
-.config-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(to right, var(--gold) 0%, var(--gold) var(--progress, 0%), #e0dbd4 var(--progress, 0%), #e0dbd4 100%);
-  outline: none;
-  cursor: pointer;
-}
-
-.config-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  box-shadow: 0 1px 4px rgba(210, 168, 90, 0.3);
-  cursor: grab;
-  transition: transform 0.15s var(--ease);
-}
-
-.config-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.2);
-}
-
-.config-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: none;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  box-shadow: 0 1px 4px rgba(210, 168, 90, 0.3);
-  cursor: grab;
-}
-
-.config-slider::-moz-range-track {
-  height: 3px;
-  border-radius: 2px;
-  background: #e0dbd4;
-}
-
-.config-slider::-moz-range-progress {
-  height: 3px;
-  border-radius: 2px;
-  background: var(--gold);
-}
-
-/* ---- Result Card (Investissement Restant) ---- */
-.result-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* ---- RESULT BOX ---- */
+.result-box {
+  border: 1px solid #bbb;
+  margin-bottom: 24px;
   overflow: hidden;
-  margin-bottom: 1.5rem;
 }
-
-.result-card__header {
-  background: var(--peach);
+.result-box__header {
+  background: #f5e0c0;
   text-align: center;
-  padding: 0.7rem 1rem;
-  font-size: 0.85rem;
+  padding: 12px 16px;
+  font-size: 15px;
   font-weight: 600;
-  color: var(--charcoal);
-  border-bottom: 1px solid #ccc;
+  color: #232323;
+  border-bottom: 1px solid #bbb;
 }
-
-.result-card__amount {
-  background: var(--mint);
+.result-box__amount {
+  background: #e8f5e9;
   text-align: center;
-  padding: 1.5rem 1rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.8rem, 7vw, 4rem);
+  padding: 28px 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
   font-weight: 700;
-  color: var(--charcoal);
+  color: #232323;
   line-height: 1;
-  transition: all 0.35s var(--ease);
+  transition: all 0.3s ease;
 }
-
-.result-card__inclus {
-  padding: 1.2rem 1.5rem;
+.result-box__inclus {
+  padding: 16px 20px;
   text-align: center;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #bbb;
 }
-
-.result-card__inclus-label {
+.result-box__inclus-label {
   display: block;
-  font-size: 0.7rem;
-  font-weight: 500;
+  font-size: 12px;
   font-style: italic;
-  color: var(--charcoal-light);
-  margin-bottom: 0.5rem;
+  color: #666;
+  margin-bottom: 6px;
 }
-
-.result-card__inclus-text {
-  font-size: 1rem;
+.result-box__inclus-text {
+  font-size: 16px;
   font-weight: 500;
-  color: var(--charcoal);
-  line-height: 1.5;
+  color: #232323;
+  line-height: 1.4;
 }
 
-/* ---- Mensualités Card ---- */
-.mensualites-card {
-  border: 1px solid #ccc;
-  border-radius: 4px;
+/* ---- MENSUALITÉS BOX ---- */
+.mensualites-box {
+  border: 1px solid #bbb;
+  margin-bottom: 24px;
   overflow: hidden;
-  margin-bottom: 1.5rem;
 }
-
-.mensualites-card__header {
-  background: var(--peach);
+.mensualites-box__header {
+  background: #f5e0c0;
   text-align: center;
-  padding: 0.6rem 1rem;
-  font-size: 0.8rem;
+  padding: 10px 16px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--charcoal);
-  border-bottom: 1px solid #ccc;
+  color: #232323;
+  border-bottom: 1px solid #bbb;
 }
-
-.mensualites-card__row {
+.mensualites-box__body {
+  display: flex;
+}
+.mensualites-box__left {
+  flex: 1;
   display: flex;
   align-items: center;
-  border-top: none;
+  justify-content: center;
+  padding: 14px 16px;
+  background: #fdf3e7;
+  border-right: 1px solid #bbb;
 }
-
-.mensualites-card__months {
+.mensualites-box__right {
   flex: 1;
   display: flex;
+  align-items: center;
   justify-content: center;
-  padding: 0.8rem 1rem;
-  background: var(--peach-light);
-  border-right: 1px solid #ccc;
-}
-
-.mensualites-card__amount {
-  flex: 1;
-  text-align: center;
-  padding: 0.8rem 1rem;
-  font-family: var(--font-display);
-  font-size: 1.6rem;
+  padding: 14px 16px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
   font-weight: 700;
-  color: var(--charcoal);
-  transition: all 0.35s var(--ease);
+  color: #232323;
+  transition: all 0.3s ease;
 }
 
-/* ---- Tier Badge ---- */
-.tier-badge {
+/* ---- TIER ---- */
+.tier {
   text-align: center;
-  padding: 1rem 0;
-}
-
-.tier-badge__name {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
   font-weight: 700;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-  display: block;
-  transition: all 0.4s var(--ease);
+  color: #d2a85a;
+  letter-spacing: 0.15em;
+  padding: 8px 0;
 }
 
-.tier-badge__name.tier--changing {
-  animation: tierChange 0.5s var(--ease);
+/* ---- ANIMATIONS ---- */
+.flash {
+  animation: flash 0.35s ease;
 }
-
-@keyframes tierChange {
-  0% { transform: scale(1); opacity: 1; }
-  40% { transform: scale(0.85); opacity: 0; }
-  60% { transform: scale(1.1); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.tier-badge__tagline {
-  font-family: var(--font-accent);
-  font-size: 1rem;
-  color: var(--charcoal-light);
-  display: block;
-}
-
-/* ---- Footer ---- */
-.footer {
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: 0.7rem;
-  color: var(--charcoal-light);
-  opacity: 0.5;
-}
-
-/* ---- Animations ---- */
-.price-updating {
-  animation: priceFlash 0.35s var(--ease);
-}
-
-@keyframes priceFlash {
+@keyframes flash {
   0% { opacity: 1; }
   30% { opacity: 0.3; }
   100% { opacity: 1; }
 }
 
-/* ---- Responsive ---- */
-@media (max-width: 768px) {
-  .config-table__row {
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-
-  .config-table__row--header span {
-    padding: 0.5rem 0.3rem;
-    font-size: 0.65rem;
-  }
-
-  .config-cell {
-    padding: 0.5rem 0.3rem;
-    border-bottom: 1px solid #eee;
-  }
-
-  .config-cell:nth-child(even) {
-    border-right: none;
-  }
-
-  .config-cell:nth-child(odd) {
-    border-right: 1px solid #ccc;
-  }
-
-  .stepper__value {
-    font-size: 1.2rem;
-  }
-
-  .stepper__value--small {
-    font-size: 0.8rem;
-    min-width: 48px;
-  }
-
-  .stepper__btn {
-    width: 26px;
-    height: 26px;
-    font-size: 0.9rem;
-  }
-
-  .mensualites-card__row {
-    flex-direction: column;
-  }
-
-  .mensualites-card__months {
-    border-right: none;
-    border-bottom: 1px solid #ccc;
+/* ---- RESPONSIVE ---- */
+@media (max-width: 700px) {
+  .config thead { display: none; }
+  .config, .config tbody, .config tr, .config td {
+    display: block;
     width: 100%;
   }
-
-  .mensualites-card__amount {
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .calculator {
-    padding: 0 0.5rem 2rem;
-  }
-
-  .config-table__row {
-    grid-template-columns: 1fr;
-  }
-
-  .config-table__row--header {
-    display: none;
-  }
-
-  .config-cell {
-    border-right: none;
-    border-bottom: 1px solid #eee;
-    padding: 0.6rem 0.8rem;
-    flex-direction: row;
+  .config tbody td {
+    display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 12px 14px;
+    border: none;
+    border-bottom: 1px solid #eee;
   }
-
-  .config-cell::before {
-    font-size: 0.7rem;
+  .config tbody td::before {
+    font-size: 12px;
     font-weight: 600;
-    color: var(--charcoal-light);
+    color: #666;
     text-transform: uppercase;
     letter-spacing: 0.05em;
   }
+  .config tbody td:nth-child(1)::before { content: "Type"; }
+  .config tbody td:nth-child(2)::before { content: "Nombre de photo"; }
+  .config tbody td:nth-child(3)::before { content: "Photo Sup"; }
+  .config tbody td:nth-child(4)::before { content: "Investissement Initial"; }
+  .config tbody td:nth-child(5)::before { content: "Caution"; }
+  .config tbody td:nth-child(6)::before { content: "Réduction"; }
+  .config tbody td:last-child { border-bottom: none; }
 
-  .config-cell:nth-child(1)::before { content: "Type"; }
-  .config-cell:nth-child(2)::before { content: "Nb photos"; }
-  .config-cell:nth-child(3)::before { content: "Photo sup"; }
-  .config-cell:nth-child(4)::before { content: "Invest. initial"; }
-  .config-cell:nth-child(5)::before { content: "Caution"; }
-  .config-cell:nth-child(6)::before { content: "Réduction"; }
-
-  .config-cell:last-child {
-    border-bottom: none;
+  .config {
+    border: 1px solid #bbb;
   }
 
-  .config-slider {
-    display: none;
+  .result-box__amount {
+    font-size: 40px;
+    padding: 22px 12px;
   }
 
-  .type-toggle {
-    flex-direction: row;
-    width: auto;
+  .mensualites-box__body {
+    flex-direction: column;
   }
-
-  .result-card__amount {
-    font-size: 2.5rem;
-    padding: 1.2rem 0.8rem;
+  .mensualites-box__left {
+    border-right: none;
+    border-bottom: 1px solid #bbb;
   }
 }

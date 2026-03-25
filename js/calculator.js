@@ -2,222 +2,161 @@
 (function () {
   'use strict';
 
-  // ---- State ----
-  const state = {
+  var state = {
     formula: 'numerique',
     photoCount: 10,
-    photoSup: 1,       // photos offertes
+    photoSup: 1,
     caution: 0,
     reduction: 150,
-    months: 6,
+    months: 6
   };
 
-  // ---- DOM refs ----
-  const $ = (sel) => document.querySelector(sel);
-  const $$ = (sel) => document.querySelectorAll(sel);
+  // ---- Helpers ----
+  function $(id) { return document.getElementById(id); }
+  function fmt(v) {
+    return v.toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+  }
+  function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
 
-  const els = {};
-
-  function cacheElements() {
-    els.typeBtns = $$('.type-toggle__btn');
-    // Photos
-    els.photosValue = $('#photos-value');
-    els.photosSlider = $('#photos-slider');
-    els.btnPhotosMinus = $('#btn-photos-minus');
-    els.btnPhotosPlus = $('#btn-photos-plus');
-    // Photo Sup
-    els.supValue = $('#sup-value');
-    els.supSlider = $('#sup-slider');
-    els.btnSupMinus = $('#btn-sup-minus');
-    els.btnSupPlus = $('#btn-sup-plus');
-    // Caution
-    els.cautionValue = $('#caution-value');
-    els.cautionSlider = $('#caution-slider');
-    els.btnCautionMinus = $('#btn-caution-minus');
-    els.btnCautionPlus = $('#btn-caution-plus');
-    // Réduction
-    els.reductionValue = $('#reduction-value');
-    els.reductionSlider = $('#reduction-slider');
-    els.btnReductionMinus = $('#btn-reduction-minus');
-    els.btnReductionPlus = $('#btn-reduction-plus');
-    // Months
-    els.monthsValue = $('#months-value');
-    els.btnMonthsMinus = $('#btn-months-minus');
-    els.btnMonthsPlus = $('#btn-months-plus');
-    // Results
-    els.investInitial = $('#investissement-initial');
-    els.investRestant = $('#investissement-restant');
-    els.inclusText = $('#inclus-text');
-    els.mensualiteAmount = $('#mensualite-amount');
-    els.tierName = $('#tier-name');
-    els.tierTagline = $('#tier-tagline');
+  // ---- Build photo dropdown ----
+  function buildPhotosSelect() {
+    var sel = $('photos-select');
+    var min = state.formula === 'numerique' ? 8 : 7;
+    var max = state.formula === 'numerique' ? 52 : 44;
+    sel.innerHTML = '';
+    for (var i = min; i <= max; i++) {
+      var opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = i;
+      if (i === state.photoCount) opt.selected = true;
+      sel.appendChild(opt);
+    }
   }
 
-  // ---- Formatting ----
-  function fmt(value) {
-    return new Intl.NumberFormat('fr-FR', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value) + ' €';
-  }
-
-  // ---- Calculation ----
+  // ---- Calculate ----
   function calculate() {
-    const table = state.formula === 'numerique' ? PRICING_NUMERIQUE : PRICING_PRODUITS;
-    const minPhotos = state.formula === 'numerique' ? 8 : 7;
-    const maxPhotos = state.formula === 'numerique' ? 52 : 44;
+    var table = state.formula === 'numerique' ? PRICING_NUMERIQUE : PRICING_PRODUITS;
+    var min = state.formula === 'numerique' ? 8 : 7;
+    var max = state.formula === 'numerique' ? 52 : 44;
 
-    // Photos facturées = total - offertes (minimum = min du barème)
-    const billedPhotos = Math.max(minPhotos, state.photoCount - state.photoSup);
-
-    // Clamp to available data
-    const lookupKey = Math.min(billedPhotos, maxPhotos);
-    const data = table[lookupKey];
+    // Photos facturées = total - offertes
+    var billed = clamp(state.photoCount - state.photoSup, min, max);
+    var data = table[billed];
     if (!data) return null;
 
-    const tier = getTier(state.photoCount);
-    const investInitial = data.prix;
-    const investRestant = Math.max(0, investInitial - state.caution - state.reduction);
-    const mensualite = state.months > 0 ? investRestant / state.months : investRestant;
+    var initial = data.prix;
+    var restant = Math.max(0, initial - state.caution - state.reduction);
+    var mensualite = state.months > 0 ? restant / state.months : restant;
+    var tier = getTier(state.photoCount);
 
     return {
-      tier,
-      investInitial,
-      investRestant,
-      mensualite,
+      initial: initial,
+      restant: restant,
+      mensualite: mensualite,
       inclus: data.inclus,
+      tier: tier
     };
   }
 
   // ---- Render ----
-  let prevTierName = null;
+  function flash(el) {
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+  }
 
   function render() {
-    const result = calculate();
-    if (!result) return;
+    var r = calculate();
+    if (!r) return;
 
-    // Tier
-    if (prevTierName !== result.tier.name) {
-      els.tierName.classList.add('tier--changing');
-      setTimeout(() => {
-        els.tierName.textContent = result.tier.name;
-        els.tierTagline.textContent = result.tier.tagline;
-        els.tierName.classList.remove('tier--changing');
-      }, 200);
-      prevTierName = result.tier.name;
-    }
-
-    // Config values
-    els.photosValue.textContent = state.photoCount;
-    els.supValue.textContent = state.photoSup;
-    els.cautionValue.textContent = fmt(state.caution);
-    els.reductionValue.textContent = fmt(state.reduction);
-    els.monthsValue.textContent = state.months;
-
-    // Sync sliders
-    els.photosSlider.value = state.photoCount;
-    els.supSlider.value = state.photoSup;
-    els.cautionSlider.value = state.caution;
-    els.reductionSlider.value = state.reduction;
-    updateAllSliders();
+    // Config display
+    $('sup-value').textContent = state.photoSup;
+    $('caution-value').textContent = fmt(state.caution);
+    $('reduction-value').textContent = fmt(state.reduction);
+    $('months-value').textContent = state.months;
 
     // Results
-    animateUpdate(els.investInitial, fmt(result.investInitial));
-    animateUpdate(els.investRestant, fmt(result.investRestant));
-    animateUpdate(els.mensualiteAmount, fmt(result.mensualite));
+    var iiEl = $('invest-initial');
+    var newII = fmt(r.initial);
+    if (iiEl.textContent !== newII) { iiEl.textContent = newII; flash(iiEl); }
 
-    // Inclus
-    els.inclusText.textContent = result.inclus;
+    var irEl = $('invest-restant');
+    var newIR = fmt(r.restant);
+    if (irEl.textContent !== newIR) { irEl.textContent = newIR; flash(irEl); }
+
+    var maEl = $('mensualite-amount');
+    var newMA = fmt(r.mensualite);
+    if (maEl.textContent !== newMA) { maEl.textContent = newMA; flash(maEl); }
+
+    $('inclus-text').textContent = r.inclus;
+    $('tier-name').textContent = r.tier.name;
   }
 
-  function animateUpdate(el, newText) {
-    if (el.textContent !== newText) {
-      el.classList.add('price-updating');
-      el.textContent = newText;
-      setTimeout(() => el.classList.remove('price-updating'), 350);
-    }
-  }
-
-  // ---- Slider progress ----
-  function updateSliderProgress(slider) {
-    const min = parseFloat(slider.min);
-    const max = parseFloat(slider.max);
-    const val = parseFloat(slider.value);
-    const pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
-    slider.style.setProperty('--progress', pct + '%');
-  }
-
-  function updateAllSliders() {
-    [els.photosSlider, els.supSlider, els.cautionSlider, els.reductionSlider].forEach(updateSliderProgress);
-  }
-
-  // ---- Event Handlers ----
-  function setFormula(formula) {
-    state.formula = formula;
-    els.typeBtns.forEach((btn) => {
-      btn.classList.toggle('type-toggle__btn--active', btn.dataset.formula === formula);
-    });
-
-    const minPhotos = formula === 'numerique' ? 8 : 7;
-    const maxPhotos = formula === 'numerique' ? 52 : 44;
-    els.photosSlider.min = minPhotos;
-    els.photosSlider.max = maxPhotos;
-    if (state.photoCount > maxPhotos) state.photoCount = maxPhotos;
-    if (state.photoCount < minPhotos) state.photoCount = minPhotos;
-
-    render();
-  }
-
-  function clamp(val, min, max) {
-    return Math.max(min, Math.min(max, val));
-  }
-
-  function bindStepper(btnMinus, btnPlus, slider, stateKey, step) {
-    const getMin = () => parseFloat(slider.min);
-    const getMax = () => parseFloat(slider.max);
-
-    btnMinus.addEventListener('click', () => {
-      state[stateKey] = clamp(state[stateKey] - step, getMin(), getMax());
-      render();
-    });
-    btnPlus.addEventListener('click', () => {
-      state[stateKey] = clamp(state[stateKey] + step, getMin(), getMax());
-      render();
-    });
-    slider.addEventListener('input', () => {
-      state[stateKey] = parseFloat(slider.value);
-      render();
-    });
-  }
-
-  // ---- Init ----
+  // ---- Events ----
   function init() {
-    cacheElements();
-
-    // Type toggle
-    els.typeBtns.forEach((btn) => {
-      btn.addEventListener('click', () => setFormula(btn.dataset.formula));
-    });
-
-    // Steppers with sliders
-    bindStepper(els.btnPhotosMinus, els.btnPhotosPlus, els.photosSlider, 'photoCount', 1);
-    bindStepper(els.btnSupMinus, els.btnSupPlus, els.supSlider, 'photoSup', 1);
-    bindStepper(els.btnCautionMinus, els.btnCautionPlus, els.cautionSlider, 'caution', 10);
-    bindStepper(els.btnReductionMinus, els.btnReductionPlus, els.reductionSlider, 'reduction', 10);
-
-    // Months (no slider)
-    els.btnMonthsMinus.addEventListener('click', () => {
-      state.months = Math.max(1, state.months - 1);
-      render();
-    });
-    els.btnMonthsPlus.addEventListener('click', () => {
-      state.months = Math.min(24, state.months + 1);
-      render();
-    });
-
-    // Initial render
+    buildPhotosSelect();
     render();
+
+    // Type select
+    $('type-select').addEventListener('change', function () {
+      state.formula = this.value;
+      var min = state.formula === 'numerique' ? 8 : 7;
+      var max = state.formula === 'numerique' ? 52 : 44;
+      state.photoCount = clamp(state.photoCount, min, max);
+      buildPhotosSelect();
+      render();
+    });
+
+    // Photos select
+    $('photos-select').addEventListener('change', function () {
+      state.photoCount = parseInt(this.value);
+      render();
+    });
+
+    // Photo Sup stepper
+    $('btn-sup-minus').addEventListener('click', function () {
+      state.photoSup = clamp(state.photoSup - 1, 0, 10);
+      render();
+    });
+    $('btn-sup-plus').addEventListener('click', function () {
+      state.photoSup = clamp(state.photoSup + 1, 0, 10);
+      render();
+    });
+
+    // Caution stepper
+    $('btn-caution-minus').addEventListener('click', function () {
+      state.caution = clamp(state.caution - 50, 0, 2000);
+      render();
+    });
+    $('btn-caution-plus').addEventListener('click', function () {
+      state.caution = clamp(state.caution + 50, 0, 2000);
+      render();
+    });
+
+    // Réduction stepper
+    $('btn-reduction-minus').addEventListener('click', function () {
+      state.reduction = clamp(state.reduction - 10, 0, 1000);
+      render();
+    });
+    $('btn-reduction-plus').addEventListener('click', function () {
+      state.reduction = clamp(state.reduction + 10, 0, 1000);
+      render();
+    });
+
+    // Months stepper
+    $('btn-months-minus').addEventListener('click', function () {
+      state.months = clamp(state.months - 1, 1, 24);
+      render();
+    });
+    $('btn-months-plus').addEventListener('click', function () {
+      state.months = clamp(state.months + 1, 1, 24);
+      render();
+    });
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();

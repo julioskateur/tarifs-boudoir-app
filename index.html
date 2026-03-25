@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tarifs Boudoir — Expérience Boudoir Toulouse</title>
-  <meta name="description" content="Calculateur de tarifs pour votre séance photo boudoir à Toulouse.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Give+You+Glory&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -12,115 +11,93 @@
 </head>
 <body>
 
+  <!-- Header -->
   <header class="header">
-    <div class="header__inner">
-      <h1 class="header__logo">Boudoir</h1>
-      <p class="header__subtitle">par Julien Boudet & Laure Beaulé</p>
-    </div>
+    <h1 class="header__logo">Boudoir</h1>
+    <p class="header__sub">PHOTOGRAPHIE</p>
+    <p class="header__names">PAR JULIEN BOUDET & LAURE BEAULÉ</p>
   </header>
 
-  <main>
-    <section class="calculator">
+  <main class="main">
 
-      <!-- Config Table -->
-      <div class="config-table">
-        <div class="config-table__row config-table__row--header">
-          <span>Type</span>
-          <span>Nombre de photo</span>
-          <span>Photo Sup</span>
-          <span>Investissement Initial</span>
-          <span>Caution</span>
-          <span>Réduction</span>
-        </div>
-        <div class="config-table__row config-table__row--values">
-          <!-- Type Toggle -->
-          <div class="config-cell">
-            <div class="type-toggle">
-              <button class="type-toggle__btn type-toggle__btn--active" data-formula="numerique">Tout Numérique</button>
-              <button class="type-toggle__btn" data-formula="produits">Avec Produits</button>
-            </div>
-          </div>
-          <!-- Nombre de photo -->
-          <div class="config-cell">
-            <div class="stepper">
-              <button class="stepper__btn" id="btn-photos-minus">−</button>
-              <span class="stepper__value" id="photos-value">10</span>
-              <button class="stepper__btn" id="btn-photos-plus">+</button>
-            </div>
-            <input type="range" class="config-slider" id="photos-slider" min="8" max="52" value="10" step="1">
-          </div>
-          <!-- Photo Sup (offertes) -->
-          <div class="config-cell">
+    <!-- Config Table -->
+    <table class="config">
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Nombre de photo</th>
+          <th>Photo Sup</th>
+          <th>Investissement Initial</th>
+          <th>Caution</th>
+          <th>Réduction</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <select id="type-select" class="config__select">
+              <option value="numerique" selected>Tout Numérique</option>
+              <option value="produits">Avec Produits</option>
+            </select>
+          </td>
+          <td>
+            <select id="photos-select" class="config__select"></select>
+          </td>
+          <td>
             <div class="stepper">
               <button class="stepper__btn" id="btn-sup-minus">−</button>
-              <span class="stepper__value" id="sup-value">1</span>
+              <span class="stepper__val" id="sup-value">1</span>
               <button class="stepper__btn" id="btn-sup-plus">+</button>
             </div>
-            <input type="range" class="config-slider" id="sup-slider" min="0" max="10" value="1" step="1">
-          </div>
-          <!-- Investissement Initial (read-only) -->
-          <div class="config-cell config-cell--result">
-            <span class="config-cell__amount" id="investissement-initial">825,00 €</span>
-          </div>
-          <!-- Caution -->
-          <div class="config-cell">
+          </td>
+          <td class="config__result" id="invest-initial">825,00 €</td>
+          <td>
             <div class="stepper">
               <button class="stepper__btn" id="btn-caution-minus">−</button>
-              <span class="stepper__value stepper__value--small" id="caution-value">0,00 €</span>
+              <span class="stepper__val stepper__val--eur" id="caution-value">0,00 €</span>
               <button class="stepper__btn" id="btn-caution-plus">+</button>
             </div>
-            <input type="range" class="config-slider" id="caution-slider" min="0" max="500" value="0" step="10">
-          </div>
-          <!-- Réduction -->
-          <div class="config-cell">
+          </td>
+          <td>
             <div class="stepper">
               <button class="stepper__btn" id="btn-reduction-minus">−</button>
-              <span class="stepper__value stepper__value--small" id="reduction-value">150,00 €</span>
+              <span class="stepper__val stepper__val--eur" id="reduction-value">150,00 €</span>
               <button class="stepper__btn" id="btn-reduction-plus">+</button>
             </div>
-            <input type="range" class="config-slider" id="reduction-slider" min="0" max="600" value="150" step="10">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Investissement Restant -->
+    <div class="result-box">
+      <div class="result-box__header">Investissement Restant</div>
+      <div class="result-box__amount" id="invest-restant">675,00 €</div>
+      <div class="result-box__inclus">
+        <span class="result-box__inclus-label">Ce qui est inclus:</span>
+        <p class="result-box__inclus-text" id="inclus-text">Photos retouchées en HD + 📱 Application Boudoir</p>
+      </div>
+    </div>
+
+    <!-- Mensualités -->
+    <div class="mensualites-box">
+      <div class="mensualites-box__header">Paiement en plusieurs mensualités</div>
+      <div class="mensualites-box__body">
+        <div class="mensualites-box__left">
+          <div class="stepper stepper--big">
+            <button class="stepper__btn" id="btn-months-minus">−</button>
+            <span class="stepper__val" id="months-value">6</span>
+            <button class="stepper__btn" id="btn-months-plus">+</button>
           </div>
         </div>
+        <div class="mensualites-box__right" id="mensualite-amount">112,50 €</div>
       </div>
+    </div>
 
-      <!-- Investissement Restant -->
-      <div class="result-card">
-        <div class="result-card__header">Investissement Restant</div>
-        <div class="result-card__amount" id="investissement-restant">675,00 €</div>
+    <!-- Tier -->
+    <div class="tier" id="tier-name">FLIRT</div>
 
-        <div class="result-card__inclus">
-          <span class="result-card__inclus-label">Ce qui est inclus:</span>
-          <p class="result-card__inclus-text" id="inclus-text">Photos retouchées en HD + 📱 Application Boudoir</p>
-        </div>
-      </div>
-
-      <!-- Mensualités -->
-      <div class="mensualites-card">
-        <div class="mensualites-card__header">Paiement en plusieurs mensualités</div>
-        <div class="mensualites-card__row">
-          <div class="mensualites-card__months">
-            <div class="stepper">
-              <button class="stepper__btn" id="btn-months-minus">−</button>
-              <span class="stepper__value" id="months-value">6</span>
-              <button class="stepper__btn" id="btn-months-plus">+</button>
-            </div>
-          </div>
-          <div class="mensualites-card__amount" id="mensualite-amount">112,50 €</div>
-        </div>
-      </div>
-
-      <!-- Tier Badge -->
-      <div class="tier-badge">
-        <span class="tier-badge__name" id="tier-name">FLIRT</span>
-        <span class="tier-badge__tagline" id="tier-tagline">Première découverte</span>
-      </div>
-
-    </section>
   </main>
-
-  <footer class="footer">
-    <p>© 2026 Expérience Boudoir Toulouse</p>
-  </footer>
 
   <script src="js/pricing-data.js"></script>
   <script src="js/calculator.js"></script>
