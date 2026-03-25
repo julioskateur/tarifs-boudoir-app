@@ -1,105 +1,187 @@
-/* =============================================
-   Tarifs Boudoir — Expérience Boudoir Toulouse
-   ============================================= */
-
+/* Tarifs Boudoir — Premium Design */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
   font-family: 'Montserrat', sans-serif;
   color: #232323;
-  background: #fff;
+  background: #faf7f2;
   -webkit-font-smoothing: antialiased;
-}
-
-/* ---- HEADER ---- */
-.header {
-  text-align: center;
-  padding: 40px 20px 30px;
-}
-.header__logo {
-  font-family: 'Give You Glory', cursive;
-  font-size: 52px;
-  font-weight: 400;
-  color: #d2a85a;
-  line-height: 1;
-}
-.header__sub {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.35em;
-  color: #232323;
-  margin-top: 2px;
-}
-.header__names {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: #666;
-  margin-top: 4px;
-}
-
-/* ---- MAIN ---- */
-.main {
-  max-width: 900px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px 16px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 0 16px 40px;
 }
 
-/* ---- CONFIG TABLE ---- */
-.config {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #bbb;
-  margin-bottom: 24px;
-  table-layout: auto;
-}
-.config thead th {
-  background: #f5e0c0;
-  border: 1px solid #bbb;
-  padding: 10px 8px;
-  font-size: 13px;
-  font-weight: 600;
+/* ---- LOGO ---- */
+.logo {
   text-align: center;
-  color: #232323;
+  margin-bottom: 10px;
 }
-.config tbody td {
-  border: 1px solid #bbb;
-  padding: 10px 8px;
-  text-align: center;
-  vertical-align: middle;
+.logo__img {
+  height: 56px;
+  width: auto;
+}
+
+/* ---- TOGGLE ---- */
+.toggle {
+  position: relative;
+  display: flex;
   background: #fff;
+  border-radius: 50px;
+  padding: 3px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid rgba(210,168,90,0.15);
 }
-.config__select {
+.toggle__btn {
+  flex: 1;
+  padding: 10px 8px;
+  border: none;
+  background: transparent;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #fff;
-  color: #232323;
+  font-weight: 500;
+  color: #888;
   cursor: pointer;
-  width: 100%;
-  max-width: 160px;
+  position: relative;
+  z-index: 2;
+  transition: color 0.3s ease;
+  border-radius: 50px;
 }
-.config__result {
-  background: #f5e0c0 !important;
+.toggle__btn--active { color: #fff; }
+.toggle__indicator {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: calc(50% - 3px);
+  height: calc(100% - 6px);
+  background: linear-gradient(135deg, #d2a85a, #b8924a);
+  border-radius: 50px;
+  transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  z-index: 1;
+  box-shadow: 0 2px 8px rgba(210,168,90,0.3);
+}
+.toggle--produits .toggle__indicator {
+  transform: translateX(100%);
+}
+
+/* ---- TIER ---- */
+.tier {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.tier__name {
   font-family: 'Playfair Display', serif;
-  font-size: 16px;
+  font-size: 36px;
   font-weight: 700;
   color: #232323;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  transition: all 0.4s ease;
+}
+.tier__name.changing {
+  animation: tierPop 0.45s ease;
+}
+@keyframes tierPop {
+  0% { transform: scale(1); opacity: 1; }
+  35% { transform: scale(0.85); opacity: 0; }
+  65% { transform: scale(1.08); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.tier__tagline {
+  font-family: 'Give You Glory', cursive;
+  font-size: 15px;
+  color: #d2a85a;
+  margin-top: 2px;
+}
+
+/* ---- RESULT CARD (★ STAR) ---- */
+.result-card {
+  width: 100%;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 24px 16px;
+  margin-bottom: 12px;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(210,168,90,0.15);
+  border: 1px solid rgba(210,168,90,0.12);
+}
+.result-card__price {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  color: #232323;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+.result-card__label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: #999;
+  margin: 4px 0 10px;
+}
+.result-card__inclus {
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  line-height: 1.4;
+  padding: 10px 0;
+  border-top: 1px solid rgba(210,168,90,0.12);
+}
+.result-card__initial {
+  font-size: 11px;
+  color: #aaa;
+  margin-top: 6px;
+}
+.result-card__initial span {
+  font-weight: 600;
+  color: #888;
+}
+
+/* ---- CONTROLS ROW (2 cards side by side) ---- */
+.controls-row {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.control-card {
+  flex: 1;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 10px 10px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  border: 1px solid rgba(210,168,90,0.08);
+}
+.control-card--compact {
+  padding: 10px 8px 8px;
+}
+.control-card__label {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #999;
+  margin-bottom: 6px;
 }
 
 /* ---- STEPPER ---- */
 .stepper {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 10px;
+  margin-bottom: 6px;
 }
+.stepper--small { gap: 8px; }
 .stepper__btn {
-  width: 30px;
-  height: 30px;
+  width: 32px; height: 32px;
   border-radius: 50%;
   border: 1.5px solid #d2a85a;
   background: #fff;
@@ -116,128 +198,108 @@ body {
   background: #d2a85a;
   color: #fff;
 }
-.stepper__btn:active {
-  transform: scale(0.9);
-}
+.stepper__btn:active { transform: scale(0.9); }
+.stepper__btn--sm { width: 26px; height: 26px; font-size: 14px; }
 .stepper__val {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #232323;
+  min-width: 40px;
+  text-align: center;
+  line-height: 1;
+}
+.stepper__val--green { color: #2d8a56; }
+.stepper__val--small {
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  min-width: 50px;
+}
+
+/* ---- SLIDER ---- */
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #d2a85a 0%, #d2a85a var(--progress, 0%), #e5e0d8 var(--progress, 0%), #e5e0d8 100%);
+  outline: none;
+  cursor: pointer;
+  margin-top: 2px;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e8c97a, #d2a85a);
+  box-shadow: 0 1px 6px rgba(210,168,90,0.35);
+  cursor: grab;
+  transition: transform 0.15s ease;
+}
+.slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.slider::-moz-range-thumb {
+  width: 18px; height: 18px;
+  border-radius: 50%; border: none;
+  background: linear-gradient(135deg, #e8c97a, #d2a85a);
+  box-shadow: 0 1px 6px rgba(210,168,90,0.35);
+  cursor: grab;
+}
+.slider::-moz-range-track { height: 4px; border-radius: 2px; background: #e5e0d8; }
+.slider::-moz-range-progress { height: 4px; border-radius: 2px; background: #d2a85a; }
+
+/* ---- FREE BADGE ---- */
+.free-badge {
+  text-align: center;
+  margin-bottom: 8px;
+  animation: fadeIn 0.3s ease;
+}
+.free-badge__icon { color: #d2a85a; margin-right: 4px; }
+.free-badge__text {
+  font-size: 13px;
+  font-weight: 600;
+  color: #b8924a;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- MENSUALITÉS ---- */
+.mensualites {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px 16px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+  border: 1px solid rgba(210,168,90,0.08);
+}
+.mensualites__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mensualites__label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #999;
+}
+.mensualites__amount {
   font-family: 'Playfair Display', serif;
   font-size: 22px;
   font-weight: 700;
   color: #232323;
-  min-width: 36px;
-  text-align: center;
-}
-.stepper__val--eur {
-  font-size: 14px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  min-width: 60px;
-}
-.stepper--big .stepper__val {
-  font-size: 28px;
-  min-width: 44px;
-}
-
-/* ---- RESULT BOX ---- */
-.result-box {
-  border: 1px solid #bbb;
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-.result-box__header {
-  background: #f5e0c0;
-  text-align: center;
-  padding: 12px 16px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #232323;
-  border-bottom: 1px solid #bbb;
-}
-.result-box__amount {
-  background: #e8f5e9;
-  text-align: center;
-  padding: 28px 16px;
-  font-family: 'Playfair Display', serif;
-  font-size: 56px;
-  font-weight: 700;
-  color: #232323;
-  line-height: 1;
   transition: all 0.3s ease;
-}
-.result-box__inclus {
-  padding: 16px 20px;
-  text-align: center;
-  border-top: 1px solid #bbb;
-}
-.result-box__inclus-label {
-  display: block;
-  font-size: 12px;
-  font-style: italic;
-  color: #666;
-  margin-bottom: 6px;
-}
-.result-box__inclus-text {
-  font-size: 16px;
-  font-weight: 500;
-  color: #232323;
-  line-height: 1.4;
-}
-
-/* ---- MENSUALITÉS BOX ---- */
-.mensualites-box {
-  border: 1px solid #bbb;
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-.mensualites-box__header {
-  background: #f5e0c0;
-  text-align: center;
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #232323;
-  border-bottom: 1px solid #bbb;
-}
-.mensualites-box__body {
-  display: flex;
-}
-.mensualites-box__left {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 16px;
-  background: #fdf3e7;
-  border-right: 1px solid #bbb;
-}
-.mensualites-box__right {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 14px 16px;
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: #232323;
-  transition: all 0.3s ease;
-}
-
-/* ---- TIER ---- */
-.tier {
-  text-align: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #d2a85a;
-  letter-spacing: 0.15em;
-  padding: 8px 0;
 }
 
 /* ---- ANIMATIONS ---- */
-.flash {
-  animation: flash 0.35s ease;
-}
+.flash { animation: flash 0.3s ease; }
 @keyframes flash {
   0% { opacity: 1; }
   30% { opacity: 0.3; }
@@ -245,49 +307,23 @@ body {
 }
 
 /* ---- RESPONSIVE ---- */
-@media (max-width: 700px) {
-  .config thead { display: none; }
-  .config, .config tbody, .config tr, .config td {
-    display: block;
-    width: 100%;
-  }
-  .config tbody td {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 14px;
-    border: none;
-    border-bottom: 1px solid #eee;
-  }
-  .config tbody td::before {
-    font-size: 12px;
-    font-weight: 600;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  .config tbody td:nth-child(1)::before { content: "Type"; }
-  .config tbody td:nth-child(2)::before { content: "Nombre de photo"; }
-  .config tbody td:nth-child(3)::before { content: "Photo Sup"; }
-  .config tbody td:nth-child(4)::before { content: "Investissement Initial"; }
-  .config tbody td:nth-child(5)::before { content: "Caution"; }
-  .config tbody td:nth-child(6)::before { content: "Réduction"; }
-  .config tbody td:last-child { border-bottom: none; }
+@media (max-width: 480px) {
+  body { padding: 10px 10px 14px; }
+  .logo__img { height: 44px; }
+  .toggle__btn { font-size: 12px; padding: 8px 6px; }
+  .tier__name { font-size: 28px; }
+  .result-card { padding: 16px 16px 12px; }
+  .result-card__price { font-size: 40px; }
+  .result-card__inclus { font-size: 13px; }
+  .stepper__val { font-size: 20px; }
+  .stepper__btn { width: 28px; height: 28px; font-size: 14px; }
+  .control-card { padding: 8px 6px 6px; }
+  .controls-row { gap: 6px; }
+  .mensualites__amount { font-size: 18px; }
+}
 
-  .config {
-    border: 1px solid #bbb;
-  }
-
-  .result-box__amount {
-    font-size: 40px;
-    padding: 22px 12px;
-  }
-
-  .mensualites-box__body {
-    flex-direction: column;
-  }
-  .mensualites-box__left {
-    border-right: none;
-    border-bottom: 1px solid #bbb;
-  }
+@media (min-height: 900px) {
+  .result-card { padding: 28px 24px 20px; margin-bottom: 16px; }
+  .result-card__price { font-size: 60px; }
+  .controls-row { margin-bottom: 12px; }
 }
