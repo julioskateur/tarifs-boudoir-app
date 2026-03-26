@@ -89,11 +89,6 @@ body{
 .slider::-moz-range-track{height:4px;border-radius:2px;background:#e5e0d8}
 .slider::-moz-range-progress{height:4px;border-radius:2px;background:#d2a85a}
 
-/* ---- FREE BADGE ---- */
-.free-badge{text-align:center;margin-bottom:6px;animation:fadeIn 0.3s ease}
-.free-badge__icon{color:#d2a85a;margin-right:4px}
-.free-badge__text{font-size:12px;font-weight:600;color:#b8924a}
-@keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 
 /* ---- MENSUALITES ---- */
 .mensualites{width:100%;display:flex;align-items:center;justify-content:space-between;background:#fff;border-radius:12px;padding:8px 14px;box-shadow:0 2px 10px rgba(0,0,0,0.04);border:1px solid rgba(210,168,90,0.08)}
@@ -125,24 +120,20 @@ body{
   .result-card__label{font-size:10px;margin:3px 0 6px}
   .result-card__inclus{font-size:13px;padding:8px 0}
   .result-card__initial{font-size:10px;margin-top:3px}
-  /* Stack controls + hide sliders on mobile */
+  /* Stack controls centered, hide sliders on mobile */
   .controls-row--triple{flex-direction:column;gap:0}
   .controls-row--triple .control-card{
-    border-radius:0;border-left:none;border-right:none;
-    box-shadow:none;border-bottom:1px solid rgba(210,168,90,0.1);
-    padding:8px 16px;
-    display:flex;align-items:center;gap:10px;
+    border-radius:0;box-shadow:none;
+    border:none;border-bottom:1px solid rgba(210,168,90,0.1);
+    padding:10px 16px 8px;text-align:center;
   }
-  .controls-row--triple .control-card:first-child{border-radius:12px 12px 0 0;border-top:1px solid rgba(210,168,90,0.08)}
-  .controls-row--triple .control-card:last-child{border-radius:0 0 12px 12px;border-bottom:1px solid rgba(210,168,90,0.08)}
-  .controls-row--triple .control-card__label{margin-bottom:0;min-width:70px;text-align:left;font-size:8px}
-  .controls-row--triple .stepper{margin-bottom:0}
-  .controls-row--triple .stepper--small{gap:8px}
+  .controls-row--triple .control-card:first-child{border-radius:12px 12px 0 0;border:1px solid rgba(210,168,90,0.08);border-bottom:1px solid rgba(210,168,90,0.1)}
+  .controls-row--triple .control-card:last-child{border-radius:0 0 12px 12px;border:1px solid rgba(210,168,90,0.08);border-top:none}
+  .controls-row--triple .control-card:nth-child(2){border-left:1px solid rgba(210,168,90,0.08);border-right:1px solid rgba(210,168,90,0.08)}
   .controls-row--triple .slider{display:none}
-  .stepper__btn--sm{width:28px;height:28px;font-size:14px}
-  .stepper__val--small{font-size:15px;min-width:50px}
-  .free-badge{margin-bottom:4px}
-  .free-badge__text{font-size:12px}
+  .controls-row--triple .stepper--small{gap:10px}
+  .stepper__btn--sm{width:30px;height:30px;font-size:15px}
+  .stepper__val--small{font-size:16px;min-width:52px}
   .mensualites{padding:10px 14px;border-radius:12px}
   .mensualites__label{font-size:9px}
   .mensualites__amount{font-size:22px}
@@ -215,12 +206,6 @@ body{
     <div class="result-card__label">Investissement Restant</div>
     <div class="result-card__inclus" id="inclus-text">Photos retouchées en HD + Application Boudoir</div>
     <div class="result-card__initial">Initial : <span id="invest-initial">825,00 €</span></div>
-  </div>
-
-  <!-- Badge photos offertes -->
-  <div class="free-badge" id="free-badge" style="display:none">
-    <span class="free-badge__icon">✦</span>
-    <span class="free-badge__text" id="free-badge-text">1 photo offerte !</span>
   </div>
 
   <!-- Réduction + Photos offertes + Caution -->
@@ -308,8 +293,6 @@ var PRICING_PRODUITS={7:{prix:795,inclus:"Bo\u00eete H\u00e9ritage 13x18cm"},8:{
     $('invest-initial').textContent=fmt(r.initial);
     var maEl=$('mensualite-amount'),newMA=fmt(r.mensualite);if(maEl.textContent!==newMA){maEl.textContent=newMA;flash(maEl)}
     $('inclus-text').textContent=r.inclus;
-    var badge=$('free-badge');
-    if(state.photoSup>0){badge.style.display='';$('free-badge-text').textContent=state.photoSup+' photo'+(state.photoSup>1?'s':'')+' offerte'+(state.photoSup>1?'s':'')+' !'}else{badge.style.display='none'}
   }
   function bindStepper(minusId,plusId,sliderId,key,step,minVal,maxVal){
     $(minusId).addEventListener('click',function(){state[key]=clamp(state[key]-step,minVal,maxVal);render()});
