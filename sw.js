@@ -1,4 +1,4 @@
-var CACHE='boudoir-v2';
+var CACHE='boudoir-v3';
 var ASSETS=['/','/index.html','/manifest.json'];
 
 self.addEventListener('install',function(e){
