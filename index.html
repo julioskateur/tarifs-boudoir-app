@@ -167,6 +167,12 @@ body{
 @media(display-mode:standalone){
   body{padding-top:max(16px,env(safe-area-inset-top))}
 }
+
+/* ---- WALKER ---- */
+.walker-scene{width:100%;height:60px;overflow:hidden;position:relative;margin-top:14px}
+.walker-scene::before{content:'';position:absolute;bottom:6px;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(210,168,90,0.25),transparent)}
+.walker-wrap{position:absolute;bottom:4px;left:-50px;animation:march 9s linear infinite}
+@keyframes march{0%{left:-50px}100%{left:110%}}
   </style>
 </head>
 <body>
@@ -250,6 +256,38 @@ body{
       </div>
     </div>
     <div class="mensualites__amount" id="mensualite-amount">112,50 €</div>
+  </div>
+
+  <!-- Walking character -->
+  <div class="walker-scene">
+    <div class="walker-wrap">
+      <svg width="38" height="52" viewBox="0 0 38 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Head -->
+        <circle cx="19" cy="7" r="6" stroke="#d2a85a" stroke-width="2"/>
+        <!-- Body -->
+        <line x1="19" y1="13" x2="19" y2="31" stroke="#d2a85a" stroke-width="2" stroke-linecap="round"/>
+        <!-- Left arm: pivot at shoulder -->
+        <g transform="translate(19,18)">
+          <animateTransform attributeName="transform" type="rotate" values="-25 0 0;25 0 0;-25 0 0" additive="sum" dur="0.84s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.45,0.05,0.55,0.95;0.45,0.05,0.55,0.95"/>
+          <line x1="0" y1="0" x2="-9" y2="10" stroke="#d2a85a" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Right arm: pivot at shoulder (opposite phase) -->
+        <g transform="translate(19,18)">
+          <animateTransform attributeName="transform" type="rotate" values="25 0 0;-25 0 0;25 0 0" additive="sum" dur="0.84s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.45,0.05,0.55,0.95;0.45,0.05,0.55,0.95"/>
+          <line x1="0" y1="0" x2="9" y2="10" stroke="#d2a85a" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Left leg: pivot at hip -->
+        <g transform="translate(19,31)">
+          <animateTransform attributeName="transform" type="rotate" values="25 0 0;-25 0 0;25 0 0" additive="sum" dur="0.84s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.45,0.05,0.55,0.95;0.45,0.05,0.55,0.95"/>
+          <line x1="0" y1="0" x2="-6" y2="14" stroke="#d2a85a" stroke-width="2" stroke-linecap="round"/>
+        </g>
+        <!-- Right leg: pivot at hip (opposite phase) -->
+        <g transform="translate(19,31)">
+          <animateTransform attributeName="transform" type="rotate" values="-25 0 0;25 0 0;-25 0 0" additive="sum" dur="0.84s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.45,0.05,0.55,0.95;0.45,0.05,0.55,0.95"/>
+          <line x1="0" y1="0" x2="6" y2="14" stroke="#d2a85a" stroke-width="2" stroke-linecap="round"/>
+        </g>
+      </svg>
+    </div>
   </div>
 
   <script>
